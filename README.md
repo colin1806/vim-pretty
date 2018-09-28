@@ -33,6 +33,8 @@ Debian、Ubuntu安装:
     ctrl-x 剪切
     ctrl-c 复制
     ctrl-v 粘贴
+    ctrl-, 注释选中代码
+    ctrl-. 反注释选中代码
     ctrl-left 跳转到左边窗口
     ctrl-right 跳转到右边窗口
     ctrl-up 跳转到上边窗口
@@ -57,11 +59,11 @@ Q&A
         
 Centos、Redhat、Fedora Install:
 
-    yum install ctags cscope wget unzip -y && wget https://github.com/langsim/notepad-ken/archive/master.zip -O master.zip && unzip -o master.zip && rm -rf ~/.vim && \cp -rf notepad-ken-master/.vim* ~ ; rm -rf master.zip notepad-ken-master
+    yum install ctags cscope wget unzip vim -y && wget https://github.com/langsim/notepad-ken/archive/master.zip -O master.zip && unzip -o master.zip && rm -rf ~/.vim && \cp -rf notepad-ken-master/.vim* ~ ; rm -rf master.zip notepad-ken-master
 
 Debian、Ubuntu Install:
 
-    apt-get install ctags cscope wget unzip -y && wget https://github.com/langsim/notepad-ken/archive/master.zip -O master.zip && unzip -o master.zip && rm -rf ~/.vim && \cp -rf notepad-ken-master/.vim* ~ ; rm -rf master.zip notepad-ken-master
+    apt-get install ctags cscope wget unzip vim -y && wget https://github.com/langsim/notepad-ken/archive/master.zip -O master.zip && unzip -o master.zip && rm -rf ~/.vim && \cp -rf notepad-ken-master/.vim* ~ ; rm -rf master.zip notepad-ken-master
 
 Operating Instruction
 
@@ -90,6 +92,8 @@ Function Key
     ctrl-x cut
     ctrl-c copy
     ctrl-v paste
+    ctrl-, comment selected code
+    ctrl-. uncomment selected code
     ctrl-left jump to left window
     ctrl-right jump to right window
     ctrl-up jump to up window
