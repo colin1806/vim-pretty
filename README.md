@@ -13,9 +13,9 @@ Debian、Ubuntu安装:
 快捷键
 
     F2 打开IDE模式
-    F3 在C/C++中可以更新索引
+    F3 高亮光标下单词
     F4 粘贴模式
-    F5 高亮光标下单词
+    F5 在C/C++中可以更新索引
     F6 显示隐藏字符
     F7 跳转到变量或函数定义
     F8 搜索变量或函数
@@ -72,9 +72,9 @@ Operating Instruction
 Function Key
 
     F2 open IDE mode
-    F3 In C/C++ update index
+    F3 highlight word under cursor
     F4 paste mode
-    F5 highlight word under cursor
+    F5 In C/C++ update index
     F6 display the hidden character
     F7 jump to variable or function defination
     F8 search variable or function defination
