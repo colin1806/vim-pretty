@@ -104,6 +104,9 @@ inoremap <F8> <c-o>:cs find s <c-r>=expand("<cword>")<cr><cr>
 inoremap <F9> <c-o>:wa<cr>
 inoremap <F10> <c-o>:qa!<cr>
 noremap <F10> :qa!<cr>
+inoremap <F11> <c-n>
+inoremap <F12> <c-x><c-o>
+
 
 if has("cscope")
     set nocsverb
