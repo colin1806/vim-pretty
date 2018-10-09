@@ -1,7 +1,7 @@
 概述
 
     安装环境：Linux, Mac和Cygwin。
-    终端软件：会将ctrl+方向键和shift+方向键等组合键发送给宿主机的终端软件。SecureCRT会发送，XShell配置后可以发送。不爱折腾，又非常想用这套配置文件，就用SecureCRT吧。
+    终端软件：会将ctrl+方向键和shift+方向键等组合键发送给宿主机的终端软件。SecureCRT会发送，XShell配置后可以发送。
     功能特点：编辑python/c/c++代码非常好用，遗憾的是没有调试功能，另外XShell需要配置一堆快捷键才能用。
 
 Centos、Redhat、Fedora安装
@@ -70,7 +70,7 @@ Q&A
 Summary
 
     Install Environment：Linux, Mac and Cygwin。
-    Terminal Software：the terminal which can send ctrl-arrow and shift-arrow to host machine. SecureCRT can send, XShell can send after config.
+    Terminal Software：terminal which send ctrl-arrow and shift-arrow to host machine. SecureCRT send, XShell send after config.
     Feature: It's nice to edit python/c/c++ code, pities are lack of debug function and need of configuration for XShell.
 
 Centos、Redhat、Fedora Install
