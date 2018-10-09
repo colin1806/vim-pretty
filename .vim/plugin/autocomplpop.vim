@@ -158,242 +158,242 @@
 "-----------------------------------------------------------------------------
 " }}}1
 
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" INCLUDE GUARD: {{{1
-if exists('loaded_autocomplpop') || v:version < 700
-  finish
-endif
-let loaded_autocomplpop = 1
-
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" FUNCTION: {{{1
-"-----------------------------------------------------------------------------
-function! s:GetSidPrefix()
-  return matchstr(expand('<sfile>'), '<SNR>\d\+_')
-endfunction
-
-"-----------------------------------------------------------------------------
-function! s:GetPopupFeeder()
-  return s:PopupFeeder
-endfunction
-
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" OBJECT: Mapper: manages global mappings {{{1
-let s:Mapper = { 'keys' :  [] }
-"-----------------------------------------------------------------------------
-
-"-----------------------------------------------------------------------------
-function! s:Mapper.map(keys)
-  call self.unmap()
-
-  let self.keys = copy(a:keys)
-
-  for key in self.keys
-    if key == ' '
-      execute 'inoremap <silent> <expr> <Space> '' '' . <SID>GetPopupFeeder().request_to_feed()'
-    else
-      execute printf('inoremap <silent> <expr> %s ''%s'' . <SID>GetPopupFeeder().request_to_feed()',
-            \        key, key)
-    endif
-  endfor
-endfunction
-
-
-"-----------------------------------------------------------------------------
-function! s:Mapper.unmap()
-  for key in self.keys
-    if key == ' '
-      execute 'iunmap <Space>'
-    else
-      execute 'iunmap ' . key
-    endif
-  endfor
-
-  let self.keys = []
-endfunction
-
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" OBJECT: PopupFeeder:  {{{1
-let s:PopupFeeder = { 'behavs' : [], 'lock_count' : 0 }
-"-----------------------------------------------------------------------------
-function! s:PopupFeeder.request_to_feed()
-  if self.lock_count != 0 || pumvisible()
-    return ''
-  endif
-
-  call s:OptionManager.set('completeopt', 'menuone' . (g:AutoComplPop_CompleteoptPreview ? ',preview' : ''))
-  call s:OptionManager.set('complete', g:AutoComplPop_CompleteOption)
-  call s:OptionManager.set('ignorecase', g:AutoComplPop_IgnoreCaseOption)
-  "call s:OptionManager.set('lazyredraw', 0)
-  let s:req_popup = 1
-
-  augroup AutoComplPop_PopupFeeder
-    autocmd!
-    autocmd  InsertLeave  * call s:PopupFeeder.on_insert_leave()
-  augroup END
-
-  " use <Plug> for silence instead of <C-r>
-  inoremap <silent> <expr> <Plug>AutocomplpopOnPopupPost <SID>GetPopupFeeder().on_popup_post()
-
-  return printf("\<C-r>=%sGetPopupFeeder().feed(" .
-        \       "  copy(exists('g:AutoComplPop_Behavior[&filetype]') " .
-        \       "       ? g:AutoComplPop_Behavior[&filetype] " .
-        \       "       : g:AutoComplPop_Behavior['*']))\<CR>", s:GetSidPrefix())
-endfunction
-
-"-----------------------------------------------------------------------------
-function! s:PopupFeeder.feed(behavs)
-  " NOTE: CursorMovedI is not triggered while the pupup menu is visible. And
-  "       it will be triggered when pupup menu is disappeared.
-
-  let text = strpart(getline('.'), 0, col('.') - 1)
-  let self.behavs = filter(a:behavs, 'text =~ v:val.pattern && text !~ v:val.excluded')
-
-  if exists('self.behavs[0]')
-    " In case of dividing words by symbols while popup menu is visible,
-    " popup is not available unless input <C-e> or try popup once.
-    " (E.g. "for(int", "ab==cd") So duplicates first completion.
-    call insert(self.behavs, self.behavs[0])
-
-    "call feedkeys(self.behavs[0].command . "\<C-r>=s:PopupFeeder.on_popup_post()\<CR>", 'n')
-    call feedkeys(self.behavs[0].command . "\<Plug>AutocomplpopOnPopupPost", 'm')
-  else
-    call self.finish()
-  endif
-  return ''
-endfunction
-
-"-----------------------------------------------------------------------------
-function! s:PopupFeeder.finish()
-  autocmd! AutoComplPop_PopupFeeder
-  call s:OptionManager.restore_all()
-  let self.behavs = []
-endfunction
-
-"-----------------------------------------------------------------------------
-function! s:PopupFeeder.lock()
-  let self.lock_count += 1
-endfunction
-
-"-----------------------------------------------------------------------------
-function! s:PopupFeeder.unlock()
-  let self.lock_count -= 1
-  if self.lock_count < 0
-    let self.lock_count = 0
-    throw "autocomplpop.vim: not locked"
-  endif
-endfunction
-
-"-----------------------------------------------------------------------------
-function! s:PopupFeeder.initialize_lock()
-  let self.lock_count = 0
-endfunction
-
-"-----------------------------------------------------------------------------
-function! s:PopupFeeder.on_insert_leave()
-  call self.finish()
-endfunction
-
-"-----------------------------------------------------------------------------
-function! s:PopupFeeder.on_cursor_moved_i_for_repeat()
-  autocmd! AutoComplPop_PopupFeeder CursorMovedI
-  call s:PopupFeeder.feed([ self.behavs[0] ])
-endfunction
-
-"-----------------------------------------------------------------------------
-function! s:PopupFeeder.on_popup_post()
-  if pumvisible()
-    if self.behavs[0].repeat
-      autocmd AutoComplPop_PopupFeeder CursorMovedI * call s:PopupFeeder.on_cursor_moved_i_for_repeat()
-    endif
-    " a command to restore to original text and select the first match
-    return "\<C-p>\<Down>"
-  elseif exists('self.behavs[1]')
-    call remove(self.behavs, 0)
-    return printf("\<C-e>%s\<C-r>=%sGetPopupFeeder().on_popup_post()\<CR>",
-          \       self.behavs[0].command, s:GetSidPrefix())
-  else
-    call self.finish()
-    return "\<C-e>"
-  endif
-endfunction
-
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" OBJECT: OptionManager: sets or restores temporary options {{{1
-let s:OptionManager = { 'originals' : {} }
-"-----------------------------------------------------------------------------
-function! s:OptionManager.set(name, value)
-  call extend(self.originals, { a:name : eval('&' . a:name) }, 'keep')
-  execute printf('let &%s = a:value', a:name)
-endfunction
-
-"-----------------------------------------------------------------------------
-function! s:OptionManager.restore_all()
-  for [name, value] in items(self.originals)
-    execute printf('let &%s = value', name)
-  endfor
-  let self.originals = {}
-endfunction
-
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" INITIALIZATION: GLOBAL OPTIONS: {{{1
-"...........................................................................
-if !exists('g:AutoComplPop_NotEnableAtStartup')
-  let g:AutoComplPop_NotEnableAtStartup = 0
-endif
-".........................................................................
-if !exists('g:AutoComplPop_MapList')
-  let g:AutoComplPop_MapList = [
-        \ 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm',
-        \ 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z',
-        \ 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M',
-        \ 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z',
-        \ '0', '1', '2', '3', '4', '5', '6', '7', '8', '9',
-        \ '_', ]
-endif
-".........................................................................
-if !exists('g:AutoComplPop_IgnoreCaseOption')
-  let g:AutoComplPop_IgnoreCaseOption = 0
-endif
-".........................................................................
-if !exists('g:AutoComplPop_CompleteOption')
-  let g:AutoComplPop_CompleteOption = '.,w,b,k'
-endif
-
-".........................................................................
-if !exists('g:AutoComplPop_CompleteoptPreview')
-  let g:AutoComplPop_CompleteoptPreview = 0
-endif
-".........................................................................
-if !exists('g:AutoComplPop_Behavior')
-  let g:AutoComplPop_Behavior = {}
-endif
-call extend(g:AutoComplPop_Behavior, {
-      \   '*' : [
-      \     {
-      \       'command'  : "\<C-n>",
-      \       'pattern'  : '\k\k$',
-      \       'excluded' : '^$',
-      \       'repeat'   : 0,
-      \     },
-      \   ],
-      \ } ,'keep')
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" INITIALIZATION: COMMANDS, AUTOCOMMANDS, MAPPINGS, ETC.: {{{1
-command! -bar -narg=0 AutoComplPopEnable  call s:Mapper.map(g:AutoComplPop_MapList) | call s:PopupFeeder.initialize_lock()
-command! -bar -narg=0 AutoComplPopDisable call s:Mapper.unmap()
-command! -bar -narg=0 AutoComplPopLock    call s:PopupFeeder.lock()
-command! -bar -narg=0 AutoComplPopUnlock  call s:PopupFeeder.unlock()
-
-if !g:AutoComplPop_NotEnableAtStartup
-  AutoComplPopEnable
-endif
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"" INCLUDE GUARD: {{{1
+"if exists('loaded_autocomplpop') || v:version < 700
+"  finish
+"endif
+"let loaded_autocomplpop = 1
+"
+"
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"" FUNCTION: {{{1
+""-----------------------------------------------------------------------------
+"function! s:GetSidPrefix()
+"  return matchstr(expand('<sfile>'), '<SNR>\d\+_')
+"endfunction
+"
+""-----------------------------------------------------------------------------
+"function! s:GetPopupFeeder()
+"  return s:PopupFeeder
+"endfunction
+"
+"
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"" OBJECT: Mapper: manages global mappings {{{1
+"let s:Mapper = { 'keys' :  [] }
+""-----------------------------------------------------------------------------
+"
+""-----------------------------------------------------------------------------
+"function! s:Mapper.map(keys)
+"  call self.unmap()
+"
+"  let self.keys = copy(a:keys)
+"
+"  for key in self.keys
+"    if key == ' '
+"      execute 'inoremap <silent> <expr> <Space> '' '' . <SID>GetPopupFeeder().request_to_feed()'
+"    else
+"      execute printf('inoremap <silent> <expr> %s ''%s'' . <SID>GetPopupFeeder().request_to_feed()',
+"            \        key, key)
+"    endif
+"  endfor
+"endfunction
+"
+"
+""-----------------------------------------------------------------------------
+"function! s:Mapper.unmap()
+"  for key in self.keys
+"    if key == ' '
+"      execute 'iunmap <Space>'
+"    else
+"      execute 'iunmap ' . key
+"    endif
+"  endfor
+"
+"  let self.keys = []
+"endfunction
+"
+"
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"" OBJECT: PopupFeeder:  {{{1
+"let s:PopupFeeder = { 'behavs' : [], 'lock_count' : 0 }
+""-----------------------------------------------------------------------------
+"function! s:PopupFeeder.request_to_feed()
+"  if self.lock_count != 0 || pumvisible()
+"    return ''
+"  endif
+"
+"  call s:OptionManager.set('completeopt', 'menuone' . (g:AutoComplPop_CompleteoptPreview ? ',preview' : ''))
+"  call s:OptionManager.set('complete', g:AutoComplPop_CompleteOption)
+"  call s:OptionManager.set('ignorecase', g:AutoComplPop_IgnoreCaseOption)
+"  "call s:OptionManager.set('lazyredraw', 0)
+"  let s:req_popup = 1
+"
+"  augroup AutoComplPop_PopupFeeder
+"    autocmd!
+"    autocmd  InsertLeave  * call s:PopupFeeder.on_insert_leave()
+"  augroup END
+"
+"  " use <Plug> for silence instead of <C-r>
+"  inoremap <silent> <expr> <Plug>AutocomplpopOnPopupPost <SID>GetPopupFeeder().on_popup_post()
+"
+"  return printf("\<C-r>=%sGetPopupFeeder().feed(" .
+"        \       "  copy(exists('g:AutoComplPop_Behavior[&filetype]') " .
+"        \       "       ? g:AutoComplPop_Behavior[&filetype] " .
+"        \       "       : g:AutoComplPop_Behavior['*']))\<CR>", s:GetSidPrefix())
+"endfunction
+"
+""-----------------------------------------------------------------------------
+"function! s:PopupFeeder.feed(behavs)
+"  " NOTE: CursorMovedI is not triggered while the pupup menu is visible. And
+"  "       it will be triggered when pupup menu is disappeared.
+"
+"  let text = strpart(getline('.'), 0, col('.') - 1)
+"  let self.behavs = filter(a:behavs, 'text =~ v:val.pattern && text !~ v:val.excluded')
+"
+"  if exists('self.behavs[0]')
+"    " In case of dividing words by symbols while popup menu is visible,
+"    " popup is not available unless input <C-e> or try popup once.
+"    " (E.g. "for(int", "ab==cd") So duplicates first completion.
+"    call insert(self.behavs, self.behavs[0])
+"
+"    "call feedkeys(self.behavs[0].command . "\<C-r>=s:PopupFeeder.on_popup_post()\<CR>", 'n')
+"    call feedkeys(self.behavs[0].command . "\<Plug>AutocomplpopOnPopupPost", 'm')
+"  else
+"    call self.finish()
+"  endif
+"  return ''
+"endfunction
+"
+""-----------------------------------------------------------------------------
+"function! s:PopupFeeder.finish()
+"  autocmd! AutoComplPop_PopupFeeder
+"  call s:OptionManager.restore_all()
+"  let self.behavs = []
+"endfunction
+"
+""-----------------------------------------------------------------------------
+"function! s:PopupFeeder.lock()
+"  let self.lock_count += 1
+"endfunction
+"
+""-----------------------------------------------------------------------------
+"function! s:PopupFeeder.unlock()
+"  let self.lock_count -= 1
+"  if self.lock_count < 0
+"    let self.lock_count = 0
+"    throw "autocomplpop.vim: not locked"
+"  endif
+"endfunction
+"
+""-----------------------------------------------------------------------------
+"function! s:PopupFeeder.initialize_lock()
+"  let self.lock_count = 0
+"endfunction
+"
+""-----------------------------------------------------------------------------
+"function! s:PopupFeeder.on_insert_leave()
+"  call self.finish()
+"endfunction
+"
+""-----------------------------------------------------------------------------
+"function! s:PopupFeeder.on_cursor_moved_i_for_repeat()
+"  autocmd! AutoComplPop_PopupFeeder CursorMovedI
+"  call s:PopupFeeder.feed([ self.behavs[0] ])
+"endfunction
+"
+""-----------------------------------------------------------------------------
+"function! s:PopupFeeder.on_popup_post()
+"  if pumvisible()
+"    if self.behavs[0].repeat
+"      autocmd AutoComplPop_PopupFeeder CursorMovedI * call s:PopupFeeder.on_cursor_moved_i_for_repeat()
+"    endif
+"    " a command to restore to original text and select the first match
+"    return "\<C-p>\<Down>"
+"  elseif exists('self.behavs[1]')
+"    call remove(self.behavs, 0)
+"    return printf("\<C-e>%s\<C-r>=%sGetPopupFeeder().on_popup_post()\<CR>",
+"          \       self.behavs[0].command, s:GetSidPrefix())
+"  else
+"    call self.finish()
+"    return "\<C-e>"
+"  endif
+"endfunction
+"
+"
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"" OBJECT: OptionManager: sets or restores temporary options {{{1
+"let s:OptionManager = { 'originals' : {} }
+""-----------------------------------------------------------------------------
+"function! s:OptionManager.set(name, value)
+"  call extend(self.originals, { a:name : eval('&' . a:name) }, 'keep')
+"  execute printf('let &%s = a:value', a:name)
+"endfunction
+"
+""-----------------------------------------------------------------------------
+"function! s:OptionManager.restore_all()
+"  for [name, value] in items(self.originals)
+"    execute printf('let &%s = value', name)
+"  endfor
+"  let self.originals = {}
+"endfunction
+"
+"
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"" INITIALIZATION: GLOBAL OPTIONS: {{{1
+""...........................................................................
+"if !exists('g:AutoComplPop_NotEnableAtStartup')
+"  let g:AutoComplPop_NotEnableAtStartup = 0
+"endif
+"".........................................................................
+"if !exists('g:AutoComplPop_MapList')
+"  let g:AutoComplPop_MapList = [
+"        \ 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm',
+"        \ 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z',
+"        \ 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M',
+"        \ 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z',
+"        \ '0', '1', '2', '3', '4', '5', '6', '7', '8', '9',
+"        \ '_', ]
+"endif
+"".........................................................................
+"if !exists('g:AutoComplPop_IgnoreCaseOption')
+"  let g:AutoComplPop_IgnoreCaseOption = 0
+"endif
+"".........................................................................
+"if !exists('g:AutoComplPop_CompleteOption')
+"  let g:AutoComplPop_CompleteOption = '.,w,b,k'
+"endif
+"
+"".........................................................................
+"if !exists('g:AutoComplPop_CompleteoptPreview')
+"  let g:AutoComplPop_CompleteoptPreview = 0
+"endif
+"".........................................................................
+"if !exists('g:AutoComplPop_Behavior')
+"  let g:AutoComplPop_Behavior = {}
+"endif
+"call extend(g:AutoComplPop_Behavior, {
+"      \   '*' : [
+"      \     {
+"      \       'command'  : "\<C-n>",
+"      \       'pattern'  : '\k\k$',
+"      \       'excluded' : '^$',
+"      \       'repeat'   : 0,
+"      \     },
+"      \   ],
+"      \ } ,'keep')
+"
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"" INITIALIZATION: COMMANDS, AUTOCOMMANDS, MAPPINGS, ETC.: {{{1
+"command! -bar -narg=0 AutoComplPopEnable  call s:Mapper.map(g:AutoComplPop_MapList) | call s:PopupFeeder.initialize_lock()
+"command! -bar -narg=0 AutoComplPopDisable call s:Mapper.unmap()
+"command! -bar -narg=0 AutoComplPopLock    call s:PopupFeeder.lock()
+"command! -bar -narg=0 AutoComplPopUnlock  call s:PopupFeeder.unlock()
+"
+"if !g:AutoComplPop_NotEnableAtStartup
+"  AutoComplPopEnable
+"endif
 
 
 function! PythonComplPop()
