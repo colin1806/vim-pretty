@@ -1,3 +1,8 @@
+安装环境：
+
+    宿主机：Linux, Mac和Cygwin。
+    终端软件：会将ctrl+方向键和shift+方向键等组合键发送给宿主机的终端软件。secureCRT会发送，XShell配置后可以发送。
+
 Centos、Redhat、Fedora安装:
 
     yum install ctags cscope wget unzip vim -y && wget https://github.com/langsim/notepad-ken/archive/master.zip -O master.zip && unzip -o master.zip && rm -rf ~/.vim && \cp -rf notepad-ken-master/.vim* ~ ; rm -rf master.zip notepad-ken-master
@@ -13,7 +18,6 @@ Debian、Ubuntu安装:
 快捷键
 
     F2 打开IDE模式
-    F3 高亮光标下单词
     F4 粘贴模式
     F5 在C/C++中可以更新索引
     F6 显示隐藏字符
@@ -21,34 +25,22 @@ Debian、Ubuntu安装:
     F8 搜索变量或函数
     F9 保存
     F10 退出
+    F11 根据语义自动补全
+    F12 进入命令模式
 
     ctrl-r 在当前文件里搜索
     ctrl-t 在当前目录及子目录搜索
     ctrl-y 重做
     ctrl-a 全选
-    ctrl-d 进入行选模式
-    ctrl-f 进入选择模式
-    ctrl-g 进入命令模式
     ctrl-z 撤销
     ctrl-x 剪切
     ctrl-c 复制
     ctrl-v 粘贴
     ctrl-, 注释选中代码
     ctrl-. 反注释选中代码
-    ctrl-left 跳转到左边窗口
-    ctrl-right 跳转到右边窗口
-    ctrl-up 跳转到上边窗口
-    ctrl-down 跳转到下边窗口
+    ctrl-方向键 将光标移动到其他窗口
+    shift-方向键 选择文本
     :%s /patten1/patten2/g 替换
-
-部分终端需要配置的按键序列
-
-    ctrl-up \033[1;5A ^[[1;5A
-    ctrl-down \033[1;5B ^[[1;5B
-    ctrl-left \033[1;5C ^[[1;5C
-    ctrl-right \033[1;5D ^[[1;5D
-    ctrl-home \033[1;5H ^[[1;5H    
-    ctrl-end \033[1;5F ^[[1;5F
 
 Q&A
 
@@ -56,7 +48,21 @@ Q&A
         减少读写代码所需的大脑思维量、手指运动量和CPU占用率
     开发主题
         简单即美
-        
+    快捷键对应的按键序列
+        ctrl-up \033[1;5A ^[[1;5A
+        ctrl-down \033[1;5B ^[[1;5B
+        ctrl-left \033[1;5C ^[[1;5C
+        ctrl-right \033[1;5D ^[[1;5D
+        ctrl-home \033[1;5H ^[[1;5H    
+        ctrl-end \033[1;5F ^[[1;5F
+    XShell配置按键序列的位置
+        工具-选项-键盘鼠标-按键对应-编辑
+
+Environment：
+
+    host machine：Linux, Mac and Cygwin。
+    terminal software：the terminal which can send ctrl-arrow and shift-arrow to host machine. secureCRT can send, xshell can send after config.
+
 Centos、Redhat、Fedora Install:
 
     yum install ctags cscope wget unzip vim -y && wget https://github.com/langsim/notepad-ken/archive/master.zip -O master.zip && unzip -o master.zip && rm -rf ~/.vim && \cp -rf notepad-ken-master/.vim* ~ ; rm -rf master.zip notepad-ken-master
@@ -72,7 +78,6 @@ Operating Instruction
 Function Key
 
     F2 open IDE mode
-    F3 highlight word under cursor
     F4 paste mode
     F5 In C/C++ update index
     F6 display the hidden character
@@ -85,19 +90,14 @@ Function Key
     ctrl-t search in current folder and child folder
     ctrl-y redo
     ctrl-a select all
-    ctrl-d switch to row select mode
-    ctrl-f switch to select mode
-    ctrl-g switch to command mode
     ctrl-z undo
     ctrl-x cut
     ctrl-c copy
     ctrl-v paste
     ctrl-, comment selected code
     ctrl-. uncomment selected code
-    ctrl-left jump to left window
-    ctrl-right jump to right window
-    ctrl-up jump to up window
-    ctrl-down jump to down window
+    ctrl-arrow jump to other window
+    shift-arrow select text
     :%s /patten1/patten2/g replace
 
 some teminal need to config
@@ -115,3 +115,12 @@ Q&A
         Consuming less brain, less finger and less cpu to read and write code
     Theme
         Pretty is simple
+    key bind
+        ctrl-up \033[1;5A ^[[1;5A
+        ctrl-down \033[1;5B ^[[1;5B
+        ctrl-left \033[1;5C ^[[1;5C
+        ctrl-right \033[1;5D ^[[1;5D
+        ctrl-home \033[1;5H ^[[1;5H    
+        ctrl-end \033[1;5F ^[[1;5F
+    XShell config position:
+        tool - configuration - keyborad and mourse - key bind - edit
