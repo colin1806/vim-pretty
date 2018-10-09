@@ -121,7 +121,7 @@ inoremap <F9> <c-o>:wa<cr>
 inoremap <F10> <c-o>:qa!<cr>
 noremap <F10> :qa!<cr>
 inoremap <F11> <c-x><c-o>
-inoremap <F12> <esc>:
+inoremap <F12> <c-o>:
 
 
 if has("cscope")
