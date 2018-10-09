@@ -1,13 +1,14 @@
-安装环境：
+概述
 
-    宿主机：Linux, Mac和Cygwin。
-    终端软件：会将ctrl+方向键和shift+方向键等组合键发送给宿主机的终端软件。secureCRT会发送，XShell配置后可以发送。
+    安装环境：Linux, Mac和Cygwin。
+    终端软件：会将ctrl+方向键和shift+方向键等组合键发送给宿主机的终端软件。SecureCRT会发送，XShell配置后可以发送。不爱折腾，又非常想用这套配置文件，就用SecureCRT吧。
+    功能特点：编辑python/c/c++代码非常好用，遗憾的是没有调试功能，另外XShell需要配置一堆快捷键才能用。
 
-Centos、Redhat、Fedora安装:
+Centos、Redhat、Fedora安装
 
     yum install ctags cscope wget unzip vim -y && wget https://github.com/langsim/notepad-ken/archive/master.zip -O master.zip && unzip -o master.zip && rm -rf ~/.vim && \cp -rf notepad-ken-master/.vim* ~ ; rm -rf master.zip notepad-ken-master
 
-Debian、Ubuntu安装:
+Debian、Ubuntu安装
 
     apt-get install ctags cscope wget unzip vim -y && wget https://github.com/langsim/notepad-ken/archive/master.zip -O master.zip && unzip -o master.zip && rm -rf ~/.vim && \cp -rf notepad-ken-master/.vim* ~ ; rm -rf master.zip notepad-ken-master
 
@@ -66,16 +67,17 @@ Q&A
     XShell配置按键序列的位置
         工具-选项-键盘鼠标-按键对应-编辑
 
-Environment：
+Summary
 
-    host machine：Linux, Mac and Cygwin。
-    terminal software：the terminal which can send ctrl-arrow and shift-arrow to host machine. secureCRT can send, xshell can send after config.
+    Install Environment：Linux, Mac and Cygwin。
+    Terminal Software：the terminal which can send ctrl-arrow and shift-arrow to host machine. SecureCRT can send, XShell can send after config.
+    Feature: It's nice to edit python/c/c++ code, pities are lack of debug function and need of configuration for XShell.
 
-Centos、Redhat、Fedora Install:
+Centos、Redhat、Fedora Install
 
     yum install ctags cscope wget unzip vim -y && wget https://github.com/langsim/notepad-ken/archive/master.zip -O master.zip && unzip -o master.zip && rm -rf ~/.vim && \cp -rf notepad-ken-master/.vim* ~ ; rm -rf master.zip notepad-ken-master
 
-Debian、Ubuntu Install:
+Debian、Ubuntu Install
 
     apt-get install ctags cscope wget unzip vim -y && wget https://github.com/langsim/notepad-ken/archive/master.zip -O master.zip && unzip -o master.zip && rm -rf ~/.vim && \cp -rf notepad-ken-master/.vim* ~ ; rm -rf master.zip notepad-ken-master
 
