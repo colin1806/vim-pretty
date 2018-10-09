@@ -59,18 +59,6 @@ let g:go_highlight_extra_types = 0
 let g:go_highlight_space_tab_error = 0
 let g:go_highlight_trailing_whitespace_error = 0
 
-function! NERDTree_Start()
-    exe 'q'
-    exe 'NERDTree'
-endfunction
-
-function! NERDTree_IsValid()
-    return 1
-endfunction
-
-command! -nargs=+ FindInFolder execute '!grep --color --exclude=tags --exclude=cscope.out -nR . -e <args>' | noh
-command! -nargs=+ Find execute ':!grep --color -n % -e <args>' | noh
-
 nnoremap <silent> <c-left> :wincmd h<cr>:set insertmode<cr>
 inoremap <silent> <c-left> <esc>:wincmd h<cr>
 nnoremap <silent> <c-right> :wincmd l<cr>:set insertmode<cr>
@@ -112,6 +100,7 @@ vnoremap <c-x> d
 inoremap <c-o> <esc><c-o>:set insertmode<cr>
 inoremap <c-t> <c-o>:FindInFolder <c-r>=expand("<cword>")<cr>
 inoremap <c-r> <c-o>:Find <c-r>=expand("<cword>")<cr>
+inoremap <c-?> <C-\><c-o>dB
 inoremap <silent> <F2> <esc>:WMToggle<cr>:TagbarToggle<cr><c-w>l:set insertmode<cr>
 inoremap <F5> <esc>:!ctags -R --c++-kinds=+p --fields=+iaS --extra=+q<cr><cr>:cs kill cscope.out<cr>:!cscope -Rb<cr><cr>:cs add cscope.out<cr>i
 inoremap <F6> <c-o>:set list!<cr>
@@ -123,12 +112,23 @@ noremap <F10> :qa!<cr>
 inoremap <F11> <c-x><c-o>
 inoremap <F12> <c-o>:
 
-
 if has("cscope")
     set nocsverb
     if filereadable("cscope.out")
         cs add cscope.out
     endif
 endif
+
+function! NERDTree_Start()
+    exe 'q'
+    exe 'NERDTree'
+endfunction
+
+function! NERDTree_IsValid()
+    return 1
+endfunction
+
+command! -nargs=+ FindInFolder execute '!grep --color --exclude=tags --exclude=cscope.out -nR . -e <args>' | noh
+command! -nargs=+ Find execute ':!grep --color -n % -e <args>' | noh
 
 autocmd BufWinEnter * setlocal insertmode
