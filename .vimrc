@@ -32,6 +32,7 @@ set completeopt=menuone,longest
 set pastetoggle=<F4>
 set complete=.,w,b,k
 set insertmode
+set selection=exclusive
 
 highlight TagbarHighlight guifg=Green ctermfg=Green
 let NERDTreeHighlightCursorline = 0
@@ -82,21 +83,36 @@ vnoremap <silent> , :call NERDComment(1, "alignLeft")<cr>
 vnoremap <silent> . :call NERDComment(1, "uncomment")<cr>
 vnoremap <bs> d
 vnoremap <c-h> d
+vnoremap <S-Up> <Up>
+vnoremap <S-Down> <Down>
+vnoremap <S-Left> <Left>
+vnoremap <S-Right> <Right>
+vnoremap <S-pageup> <pageup>
+vnoremap <S-pagedown> <pagedown>
+vnoremap <up> <esc><up>
+vnoremap <down> <esc><down>
+vnoremap <left> <esc><left>
+vnoremap <right> <esc><right>
+vnoremap <home> <esc><home>
+vnoremap <end> <esc><end>
+inoremap <S-Up> <c-o>v<Up>
+inoremap <S-Down> <c-o>v<Down>
+inoremap <S-Left> <c-o>v<Left>
+inoremap <S-Right> <c-o>v<Right>
+inoremap <S-pageup> <c-o>v<pageup>
+inoremap <S-pagedown> <c-o>v<pagedown>
+inoremap <s-home> <c-o>v<home>
+inoremap <s-end> <c-o>v<end>
 inoremap <c-z> <c-o>u
 inoremap <c-y> <c-o><c-r>
 inoremap <c-v> <c-o>P
 inoremap <c-a> <c-o>gg<c-o>VG
-inoremap <c-f> <c-o>v
-inoremap <c-d> <c-o>V
-vnoremap <c-d> <esc>
 vnoremap <c-c> y
 vnoremap <c-x> d
 inoremap <c-o> <esc><c-o>:set insertmode<cr>
 inoremap <c-t> <c-o>:FindInFolder <c-r>=expand("<cword>")<cr>
 inoremap <c-r> <c-o>:Find <c-r>=expand("<cword>")<cr>
-inoremap <c-g> <c-o>:
 inoremap <silent> <F2> <esc>:WMToggle<cr>:TagbarToggle<cr><c-w>l:set insertmode<cr>
-inoremap <F3> <esc>ms:%s /\<<c-r>=expand("<cword>")<cr>\>//gn<cr>`sa
 inoremap <F5> <esc>:!ctags -R --c++-kinds=+p --fields=+iaS --extra=+q<cr><cr>:cs kill cscope.out<cr>:!cscope -Rb<cr><cr>:cs add cscope.out<cr>i
 inoremap <F6> <c-o>:set list!<cr>
 inoremap <F7> <c-o>g<c-]>
@@ -104,8 +120,8 @@ inoremap <F8> <c-o>:cs find s <c-r>=expand("<cword>")<cr><cr>
 inoremap <F9> <c-o>:wa<cr>
 inoremap <F10> <c-o>:qa!<cr>
 noremap <F10> :qa!<cr>
-inoremap <F11> <c-n>
-inoremap <F12> <c-x><c-o>
+inoremap <F11> <c-x><c-o>
+inoremap <F12> :
 
 
 if has("cscope")
