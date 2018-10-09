@@ -55,6 +55,14 @@ Q&A
         ctrl-right \033[1;5D ^[[1;5D
         ctrl-home \033[1;5H ^[[1;5H    
         ctrl-end \033[1;5F ^[[1;5F
+        shift-home \033[1;2H
+        shift-end \033[1;2F
+        shift-pageup \033[5;2~
+        shift-pagedown \033[6;2~
+        shift-left \033[1;2D
+        shift-right \033[1;2C
+        shift-up \033[1;2A
+        shift-down \033[1;2B
     XShell配置按键序列的位置
         工具-选项-键盘鼠标-按键对应-编辑
 
@@ -122,5 +130,13 @@ Q&A
         ctrl-right \033[1;5D ^[[1;5D
         ctrl-home \033[1;5H ^[[1;5H    
         ctrl-end \033[1;5F ^[[1;5F
+        shift-home \033[1;2H
+        shift-end \033[1;2F
+        shift-pageup \033[5;2~
+        shift-pagedown \033[6;2~
+        shift-left \033[1;2D
+        shift-right \033[1;2C
+        shift-up \033[1;2A
+        shift-down \033[1;2B
     XShell config position:
         tool - configuration - keyborad and mourse - key bind - edit
