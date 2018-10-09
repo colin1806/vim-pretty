@@ -13,7 +13,7 @@ Debian、Ubuntu安装:
 
 使用方法
 
-    在项目的根目录打开vim，按F2打开目录树，按ctrl-left将光标移动到目录树，C/C++项目第一次打开时需要按F3更新索引。
+    在项目的根目录打开vim，按F2打开目录树，按ctrl-left将光标移动到目录树，C/C++项目第一次打开时需要按F5更新索引。
 
 快捷键
 
@@ -73,7 +73,7 @@ Debian、Ubuntu Install:
 
 Operating Instruction
 
-    Open vim in project root dir，press F2 and ctrl-left to use file tree. Press F3 to update index when open C/C++ project first time.
+    Open vim in project root dir，press F2 and ctrl-left to use file tree. Press F5 to update index when open C/C++ project first time.
 
 Function Key
 
