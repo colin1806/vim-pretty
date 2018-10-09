@@ -105,7 +105,7 @@ inoremap <s-home> <c-o>v<home>
 inoremap <s-end> <c-o>v<end>
 inoremap <c-z> <c-o>u
 inoremap <c-y> <c-o><c-r>
-inoremap <c-v> <c-o>P
+inoremap <c-v> <c-\><c-o>P
 inoremap <c-a> <c-o>gg<c-o>VG
 vnoremap <c-c> y
 vnoremap <c-x> d
