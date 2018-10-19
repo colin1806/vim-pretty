@@ -6,11 +6,11 @@
 
 Centos、Redhat、Fedora安装
 
-    yum install ctags cscope wget unzip vim -y && wget https://github.com/langsim/vim-pretty/archive/master.zip -O master.zip && unzip -o master.zip && rm -rf ~/.vim && \cp -rf vim-pretty-master/.vim* ~ ; rm -rf master.zip vim-pretty-master
+    yum install ctags cscope wget unzip -y && wget https://github.com/langsim/vim-pretty/archive/master.zip -O master.zip && unzip -o master.zip && rm -rf ~/.vim && \cp -rf vim-pretty-master/.vim* ~ ; rm -rf master.zip vim-pretty-master
 
 Debian、Ubuntu安装
 
-    apt-get install ctags cscope wget unzip vim -y && wget https://github.com/langsim/vim-pretty/archive/master.zip -O master.zip && unzip -o master.zip && rm -rf ~/.vim && \cp -rf vim-pretty-master/.vim* ~ ; rm -rf master.zip vim-pretty-master
+    apt-get install ctags cscope wget unzip -y && wget https://github.com/langsim/vim-pretty/archive/master.zip -O master.zip && unzip -o master.zip && rm -rf ~/.vim && \cp -rf vim-pretty-master/.vim* ~ ; rm -rf master.zip vim-pretty-master
 
 使用方法
 
@@ -69,15 +69,15 @@ Summary
 
     Install Environment：Linux, Mac and Cygwin。
     Terminal Software：terminal which send ctrl-arrow and shift-arrow to host machine. SecureCRT send, XShell send after config.
-    Feature: It's nice to edit python/c/c++ code, pities are lack of debug function and need of configuration for XShell.
+    Feature: It's nice to edit python/c/c++ code.
 
 Centos、Redhat、Fedora Install
 
-    yum install ctags cscope wget unzip vim -y && wget https://github.com/langsim/notepad-ken/archive/master.zip -O master.zip && unzip -o master.zip && rm -rf ~/.vim && \cp -rf notepad-ken-master/.vim* ~ ; rm -rf master.zip notepad-ken-master
+    yum install ctags cscope wget unzip -y && wget https://github.com/langsim/notepad-ken/archive/master.zip -O master.zip && unzip -o master.zip && rm -rf ~/.vim && \cp -rf notepad-ken-master/.vim* ~ ; rm -rf master.zip notepad-ken-master
 
 Debian、Ubuntu Install
 
-    apt-get install ctags cscope wget unzip vim -y && wget https://github.com/langsim/notepad-ken/archive/master.zip -O master.zip && unzip -o master.zip && rm -rf ~/.vim && \cp -rf notepad-ken-master/.vim* ~ ; rm -rf master.zip notepad-ken-master
+    apt-get install ctags cscope wget unzip -y && wget https://github.com/langsim/notepad-ken/archive/master.zip -O master.zip && unzip -o master.zip && rm -rf ~/.vim && \cp -rf notepad-ken-master/.vim* ~ ; rm -rf master.zip notepad-ken-master
 
 Operating Instruction
 
@@ -109,6 +109,7 @@ Function Key
     :%s /patten1/patten2/g replace
 
 Q&A
+
     Theme
         心安体健(no english word can completely express "安", so I can only use Chinese)
     key bind
