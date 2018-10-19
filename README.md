@@ -73,11 +73,11 @@ Summary
 
 Centos、Redhat、Fedora Install
 
-    yum install ctags cscope wget unzip -y && wget https://github.com/langsim/notepad-ken/archive/master.zip -O master.zip && unzip -o master.zip && rm -rf ~/.vim && \cp -rf notepad-ken-master/.vim* ~ ; rm -rf master.zip notepad-ken-master
+    yum install ctags cscope wget unzip -y && wget https://github.com/langsim/vim-pretty/archive/master.zip -O master.zip && unzip -o master.zip && rm -rf ~/.vim && \cp -rf vim-pretty-master/.vim* ~ ; rm -rf master.zip vim-pretty-master
 
 Debian、Ubuntu Install
 
-    apt-get install ctags cscope wget unzip -y && wget https://github.com/langsim/notepad-ken/archive/master.zip -O master.zip && unzip -o master.zip && rm -rf ~/.vim && \cp -rf notepad-ken-master/.vim* ~ ; rm -rf master.zip notepad-ken-master
+    apt-get install ctags cscope wget unzip -y && wget https://github.com/langsim/vim-pretty/archive/master.zip -O master.zip && unzip -o master.zip && rm -rf ~/.vim && \cp -rf vim-pretty-master/.vim* ~ ; rm -rf master.zip vim-pretty-master
 
 Operating Instruction
 
