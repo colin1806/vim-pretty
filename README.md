@@ -2,15 +2,15 @@
 
     安装环境：Linux, Mac和Cygwin。
     终端软件：会将ctrl+方向键和shift+方向键等组合键发送给宿主机的终端软件。SecureCRT会发送，XShell配置后可以发送。
-    功能特点：编辑python/c/c++代码非常好用，遗憾的是没有调试功能，另外XShell需要配置一堆快捷键才能用。
+    功能特点：编辑python/c/c++代码非常好用。
 
 Centos、Redhat、Fedora安装
 
-    yum install ctags cscope wget unzip vim -y && wget https://github.com/langsim/notepad-ken/archive/master.zip -O master.zip && unzip -o master.zip && rm -rf ~/.vim && \cp -rf notepad-ken-master/.vim* ~ ; rm -rf master.zip notepad-ken-master
+    yum install ctags cscope wget unzip vim -y && wget https://github.com/langsim/vim-pretty/archive/master.zip -O master.zip && unzip -o master.zip && rm -rf ~/.vim && \cp -rf vim-pretty-master/.vim* ~ ; rm -rf master.zip vim-pretty-master
 
 Debian、Ubuntu安装
 
-    apt-get install ctags cscope wget unzip vim -y && wget https://github.com/langsim/notepad-ken/archive/master.zip -O master.zip && unzip -o master.zip && rm -rf ~/.vim && \cp -rf notepad-ken-master/.vim* ~ ; rm -rf master.zip notepad-ken-master
+    apt-get install ctags cscope wget unzip vim -y && wget https://github.com/langsim/vim-pretty/archive/master.zip -O master.zip && unzip -o master.zip && rm -rf ~/.vim && \cp -rf vim-pretty-master/.vim* ~ ; rm -rf master.zip vim-pretty-master
 
 使用方法
 
@@ -45,10 +45,8 @@ Debian、Ubuntu安装
 
 Q&A
 
-    项目诞生缘由
-        减少读写代码所需的大脑思维量、手指运动量和CPU占用率
-    开发主题
-        简单即美
+    主题
+        心安体健
     快捷键对应的按键序列
         ctrl-up \033[1;5A ^[[1;5A
         ctrl-down \033[1;5B ^[[1;5B
@@ -110,21 +108,9 @@ Function Key
     shift-arrow select text
     :%s /patten1/patten2/g replace
 
-some teminal need to config
-
-    ctrl-up \033[1;5A ^[[1;5A
-    ctrl-down \033[1;5B ^[[1;5B
-    ctrl-left \033[1;5C ^[[1;5C
-    ctrl-right \033[1;5D ^[[1;5D
-    ctrl-home \033[1;5H ^[[1;5H    
-    ctrl-end \033[1;5F ^[[1;5F
-
 Q&A
-
-    Target
-        Consuming less brain, less finger and less cpu to read and write code
     Theme
-        Pretty is simple
+        心安体健(no english word can completely express "安", so I can only use Chinese)
     key bind
         ctrl-up \033[1;5A ^[[1;5A
         ctrl-down \033[1;5B ^[[1;5B
