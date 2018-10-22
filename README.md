@@ -111,7 +111,7 @@ Function Key
 Q&A
 
     Theme
-        心安体健(no english word can completely express "安", so I can only use Chinese)
+        Heart more pretty, more healthy.
     key bind
         ctrl-up \033[1;5A ^[[1;5A
         ctrl-down \033[1;5B ^[[1;5B
