@@ -8,10 +8,6 @@ Centos、Redhat、Fedora安装
 
     yum install ctags cscope wget unzip -y && wget https://github.com/langsim/vim-pretty/archive/master.zip -O master.zip && unzip -o master.zip && rm -rf ~/.vim && \cp -rf vim-pretty-master/.vim* ~ ; rm -rf master.zip vim-pretty-master
 
-Debian、Ubuntu安装
-
-    apt-get install ctags cscope wget unzip -y && wget https://github.com/langsim/vim-pretty/archive/master.zip -O master.zip && unzip -o master.zip && rm -rf ~/.vim && \cp -rf vim-pretty-master/.vim* ~ ; rm -rf master.zip vim-pretty-master
-
 使用方法
 
     在项目的根目录打开vim，按F2打开目录树，按ctrl-left将光标移动到目录树，C/C++项目第一次打开时需要按F5更新索引。
@@ -74,10 +70,6 @@ Summary
 Centos、Redhat、Fedora Install
 
     yum install ctags cscope wget unzip -y && wget https://github.com/langsim/vim-pretty/archive/master.zip -O master.zip && unzip -o master.zip && rm -rf ~/.vim && \cp -rf vim-pretty-master/.vim* ~ ; rm -rf master.zip vim-pretty-master
-
-Debian、Ubuntu Install
-
-    apt-get install ctags cscope wget unzip -y && wget https://github.com/langsim/vim-pretty/archive/master.zip -O master.zip && unzip -o master.zip && rm -rf ~/.vim && \cp -rf vim-pretty-master/.vim* ~ ; rm -rf master.zip vim-pretty-master
 
 Operating Instruction
 
