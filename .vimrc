@@ -100,7 +100,7 @@ vnoremap <c-x> d
 inoremap <c-o> <esc><c-o>:set insertmode<cr>
 inoremap <c-t> <c-o>:FindInFolder <c-r>=expand("<cword>")<cr>
 inoremap <c-r> <c-o>:Find <c-r>=expand("<cword>")<cr>
-inoremap <c-?> <C-\><c-o>dB
+inoremap <c-w> <C-\><c-o>dB
 inoremap <silent> <F2> <esc>:WMToggle<cr>:TagbarToggle<cr><c-w>l:set insertmode<cr>
 inoremap <F5> <esc>:!ctags -R --c++-kinds=+p --fields=+iaS --extra=+q<cr><cr>:cs kill cscope.out<cr>:!cscope -Rb<cr><cr>:cs add cscope.out<cr>i
 inoremap <F6> <c-o>:set list!<cr>
