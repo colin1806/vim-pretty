@@ -58,13 +58,14 @@ Q&A
         shift-right \033[1;2C
         shift-up \033[1;2A
         shift-down \033[1;2B
+        shift-tab \033[Z
     XShell配置按键序列的位置
         工具-选项-键盘鼠标-按键对应-编辑
 
 Summary
 
     Install Environment：Linux, Mac and Cygwin。
-    Terminal Software：terminal which send ctrl-arrow and shift-arrow to host machine. SecureCRT send, XShell send after config.
+    Terminal Software：terminal which send ctrl-arrow and shift-arrow to host machine.
     Feature: It's nice to edit python/c/c++ code.
 
 Centos、Redhat、Fedora Install
@@ -73,7 +74,7 @@ Centos、Redhat、Fedora Install
 
 Operating Instruction
 
-    Open vim in project root dir，press F2 and ctrl-left to use file tree. Press F5 to update index when open C/C++ project first time.
+    Open vim in project root dir，press F2 and ctrl-left to use file tree.
 
 Function Key
 
@@ -119,5 +120,6 @@ Q&A
         shift-right \033[1;2C
         shift-up \033[1;2A
         shift-down \033[1;2B
+        shift-tab \033[Z
     XShell config position:
         tool - configuration - keyborad and mourse - key bind - edit
