@@ -2,7 +2,7 @@
 
     安装环境：Linux, Mac和Cygwin。
     终端软件：会将ctrl+方向键和shift+方向键等组合键发送给宿主机的终端软件。SecureCRT会发送，XShell配置后可以发送。
-    功能特点：编辑python/c/c++代码非常好用。
+    功能特点：去掉了esc的vim，编辑python/c/c++代码非常好用。
 
 Centos、Redhat、Fedora安装
 
@@ -66,7 +66,7 @@ Summary
 
     Install Environment：Linux, Mac and Cygwin。
     Terminal Software：terminal which send ctrl-arrow and shift-arrow to host machine.
-    Feature: It's nice to edit python/c/c++ code.
+    Feature: vim without esc, It's nice to edit python/c/c++ code.
 
 Centos、Redhat、Fedora Install
 
